@@ -19,7 +19,8 @@ pista: PARA LEER DE TECLADO USAD LA CLASE SCANNER
 public class CalculaIndiceMasaCorporal {
 	
 	public static void main(String[] args) {
-		System.out.println(calcularIMC(1.69, 50));
+		
+		System.out.println(calcularIMC(1.69, 52));
 	}
 	
 	
