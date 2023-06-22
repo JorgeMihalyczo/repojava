@@ -3,12 +3,12 @@ package aplicacion;
 import java.util.Arrays;
 import java.util.List;
 
-public class Restaurante {
-	
-	//id?¿
-	private String nombre;
 
+public class Restaurante implements Comparable<Restaurante> {
+	
+	private String nombre;
 	private String direccion;
+	private float precio;
 	private String web;
 	private String fichaGoogle;
 	private float latitud;
@@ -21,11 +21,12 @@ public class Restaurante {
 	}
 	
 	
-	public Restaurante(String nombre, String direccion, String web, String fichaGoogle, float latitud, float longitud,
+	public Restaurante(String nombre, String direccion, float precio, String web, String fichaGoogle, float latitud, float longitud,
 			String barrio, String ... especialidades) {
 		super();
 		this.nombre = nombre;
 		this.direccion = direccion;
+		this.precio = precio;
 		this.web = web;
 		this.fichaGoogle = fichaGoogle;
 		this.latitud = latitud;
@@ -52,11 +53,13 @@ public class Restaurante {
 		return iguales;
 	}
 	
+	
+
 	@Override
 	public String toString() {
-		return "Restaurante [nombre=" + nombre + ", direccion=" + direccion + ", web=" + web + ", fichaGoogle="
-				+ fichaGoogle + ", latitud=" + latitud + ", longitud=" + longitud + ", barrio=" + barrio
-				+ ", especialidades=" + especialidades + "]";
+		return "Restaurante [nombre=" + nombre + ", direccion=" + direccion + ", precio=" + precio + ", web=" + web
+				+ ", fichaGoogle=" + fichaGoogle + ", latitud=" + latitud + ", longitud=" + longitud + ", barrio="
+				+ barrio + ", especialidades=" + especialidades + "]";
 	}
 
 
@@ -68,6 +71,12 @@ public class Restaurante {
 	}
 	public String getDireccion() {
 		return direccion;
+	}
+	public float getPrecio() {
+		return precio;
+	}
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
@@ -107,6 +116,18 @@ public class Restaurante {
 	}
 	public void setEspecialidades(List<String> especialidades) {
 		this.especialidades = especialidades;
+	}
+
+
+	@Override
+	public int compareTo(Restaurante o) {
+		int num = 0;
+			if (this.precio < o.precio) {
+				num = -1;
+			} else if (this.precio > o.precio){
+				num = 1;
+			}
+		return num;
 	}
 	
 	

@@ -16,7 +16,7 @@ import aplicacion.Restaurante;
 
 public class MainRestaurante {
 
-	private static final String RUTA_FICHERO = "restaurantes.txt";
+	private static final String RUTA_FICHERO = "restaurantesconprecio.txt";
 
 	public static List<Restaurante> cargarRestaurantes(List<String> lineas) {
 		List<Restaurante> lRestaurantes = null;
@@ -50,6 +50,9 @@ public class MainRestaurante {
 				restauranteAux.setBarrio(linea);
 				break;
 			case 8:
+				restauranteAux.setPrecio(Float.parseFloat(linea));
+				break;
+			case 9:
 				String[] especialidades = linea.split(",");// troceo esp1, esp2, esp3
 				List<String> lespecialidades = Arrays.asList(especialidades);// paso de Array a Lista
 				restauranteAux.setEspecialidades(lespecialidades);
@@ -86,6 +89,7 @@ public class MainRestaurante {
 			restauranteABuscar.setLatitud(36.7184846f);
 			restauranteABuscar.setLongitud(-4.4909181f);
 			restauranteABuscar.setBarrio("centro");
+			restauranteABuscar.setPrecio(8.20f);
 			restauranteABuscar.setEspecialidades(List.of("hamburguesas", "patas fritas", "helados"));
 			
 			
@@ -107,11 +111,8 @@ public class MainRestaurante {
 		}
 	}
 
-	public static boolean buscarRestaurantes(List<Restaurante> listRest, Restaurante restauranteBuscado) { // metodo
-																											// buscame
-																											// esto en
-																											// esta
-																											// lista
+	// metodo buscame esto en esta lista
+	public static boolean buscarRestaurantes(List<Restaurante> listRest, Restaurante restauranteBuscado) { 
 		boolean estaRestaurante = false; // mejor practica poner los booleanos a false y los int a 0 y los objetos a
 											// null.
 		int pos_actual = 0;
@@ -129,14 +130,9 @@ public class MainRestaurante {
 
 	}
 
-	public static boolean buscarRestaurantesPorNombre(List<Restaurante> listRest, Restaurante restauranteBuscado) { // metodo
-																													// buscame
-																													// esto
-																													// en
-																													// esta
-																													// lista
-		boolean estaRestaurante = false; // mejor practica poner los booleanos a false y los int a 0 y los objetos a
-											// null.
+	// metodo buscame esto en esta lista
+	public static boolean buscarRestaurantesPorNombre(List<Restaurante> listRest, Restaurante restauranteBuscado) { 
+		boolean estaRestaurante = false; // mejor practica poner los booleanos a false y los int a 0 y los objetos a null.
 		int pos_actual = 0;
 		int longitud = listRest.size();
 
@@ -152,14 +148,9 @@ public class MainRestaurante {
 
 	}
 
-	public static boolean buscarRestaurantesPorBarrio(List<Restaurante> listRest, Restaurante restauranteBuscado) { // metodo
-																													// buscame
-																													// esto
-																													// en
-																													// esta
-																													// lista
-		boolean estaRestaurante = false; // mejor practica poner los booleanos a false y los int a 0 y los objetos a
-											// null.
+	// metodo buscame esto en esta lista
+	public static boolean buscarRestaurantesPorBarrio(List<Restaurante> listRest, Restaurante restauranteBuscado) { 
+		boolean estaRestaurante = false; // mejor practica poner los booleanos a false y los int a 0 y los objetos a null.
 		int pos_actual = 0;
 		int longitud = listRest.size();
 
@@ -189,6 +180,53 @@ public class MainRestaurante {
 		}
 
 		return restaurantesEncontrados;
-
 	}
+	
+	public static List<Restaurante> buscarRestaurantesPorNombre (List<Restaurante> lRestaurantes, String nombre)
+	{
+		List<Restaurante> listaRestNombres = null;
+		
+			listaRestNombres = new ArrayList<Restaurante>();
+			for (Restaurante r :listaRestNombres)
+			{
+				//si coincide el nombre, la añado
+				if (r.getNombre().indexOf(nombre)!=-1)
+				{
+					listaRestNombres.add(r);
+				}
+			}
+		
+		return listaRestNombres;
+	}
+	
+	
+	public static List<Restaurante> buscarRestaurantesPorBarrioLambda (List<Restaurante> lRestaurantes, String barrio)
+	{
+		List<Restaurante> listaRestBarrios = null;
+		
+			listaRestBarrios = lRestaurantes.stream().filter((Restaurante r)->{return r.getBarrio().contains(barrio);}).toList();
+		
+		return listaRestBarrios;
+	}
+	
+	//Busqueda por Barrio
+	  public static List<Restaurante> buscarRestaurantesPorBarrio (List<Restaurante> lRestaurantes, String barrio)
+		{
+			List<Restaurante> listaRestBarrios = null;
+			listaRestBarrios = new ArrayList<>();
+
+			  for (Restaurante restActual : lRestaurantes) {
+			    if (restActual.getBarrio().equalsIgnoreCase(barrio)) {
+			      listaRestBarrios.add(restActual);
+			    }
+			  }
+			return listaRestBarrios;
+		}
+	  
+	 public static List<Restaurante> buscarRestaurantesPorPrecio (List<Restaurante> lRestaurantes, double presupuesto){
+		  List<Restaurante> lRestaurantesSegunPrecio = null;
+		  // TODO: terminar funcion filtro por precio. 
+		  return lRestaurantesSegunPrecio;
+	  }
+	  
 }
