@@ -45,7 +45,7 @@ public class MainMapas {
 			
 			
 			
-			System.out.println(mapaRestaurantes);
+			//System.out.println(mapaRestaurantes);
 			
 			Restaurante rp = mapaRestaurantes.get("La Parrilla");
 			System.out.println(rp.toString());
@@ -59,9 +59,11 @@ public class MainMapas {
 				System.out.println("BARRIO =  " + barrio);
 				for (Restaurante rb : lrb)
 				{
-					System.out.println(rb.toString());
+					// System.out.println(rb.toString());
 				}
 			}
+			
+			System.out.println(obtenerRestaurantesMasCaros(mapaRestaurantesPorBarrios).toString()); 
 			
 		}
 		else {
@@ -97,8 +99,38 @@ public class MainMapas {
 		
 	}
 	
+	public static List<Restaurante> obtenerRestaurantesMasCaros (Map<String, List<Restaurante>> mapaRestaurantes) {
+		
+		List<Restaurante> listaCaros = new ArrayList<>();
+		
+		for ( String  barrio : mapaRestaurantes.keySet()) {
+			
+			List<Restaurante> listaRestaurantesPorBarrio = mapaRestaurantes.get(barrio);
+			
+			Restaurante restauranteMasCaro = obtenerMasCaro(listaRestaurantesPorBarrio);
+			
+			listaCaros.add(restauranteMasCaro);
+			
+		}
+		
+		return listaCaros;
+	}
 	
-	
+	private static Restaurante obtenerMasCaro (List<Restaurante> listaRestaurantes) {
+		Restaurante restauranteMasCaro = null;
+		float precioMayor = 0;
+		
+		for (Restaurante restaurante : listaRestaurantes) {
+			if (restaurante.getPrecio() > precioMayor) {
+				restauranteMasCaro = restaurante;
+				precioMayor = restaurante.getPrecio();
+			}
+		}
+		
+		Collections.sort(listaRestaurantes);
+		
+		return restauranteMasCaro;
+	}
 	
 	
 	
