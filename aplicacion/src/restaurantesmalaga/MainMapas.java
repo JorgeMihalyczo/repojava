@@ -53,18 +53,16 @@ public class MainMapas {
 			Map<String, List<Restaurante>> mapaRestaurantesPorBarrios = null;
 			mapaRestaurantesPorBarrios = crearMapRestaurantesPorBarrios(listRest);
 			Set<String> clavesMapa = mapaRestaurantesPorBarrios.keySet();
-			for (String barrio : clavesMapa)
-			{
+			for (String barrio : clavesMapa) 	{
 				List<Restaurante> lrb = mapaRestaurantesPorBarrios.get(barrio);
 				System.out.println("BARRIO =  " + barrio);
-				for (Restaurante rb : lrb)
-				{
+				for (Restaurante rb : lrb)	{
 					// System.out.println(rb.toString());
 				}
 			}
 			
-			System.out.println(obtenerRestaurantesMasCaros(mapaRestaurantesPorBarrios).toString()); 
-			
+			// System.out.println(obtenerRestaurantesMasCaros(mapaRestaurantesPorBarrios).toString()); 
+			System.out.println("Precio medio del siguiente barrio:  " + devuelvePrecioMedioDeBarrio(mapaRestaurantesPorBarrios, "Centro") );
 		}
 		else {
 			System.out.println("FICHERO NO EXISTE!");
@@ -81,11 +79,9 @@ public class MainMapas {
 				//añado restaurante a esa lista
 			//si no, creo lista nueva y add ese restaurante
 		
-			for (Restaurante r : lr)
-			{
+			for (Restaurante r : lr) 	{
 				List<Restaurante> lrb = mapa.get(r.getBarrio());
-				if (lrb!=null)
-				{
+				if ( lrb != null)	{
 					System.out.println("ya existen restaurantes con ese barrio");
 					lrb.add(r);
 				} else {
@@ -133,6 +129,65 @@ public class MainMapas {
 	}
 	
 	
+	/*  1) Hacer un método que reciba el mapa de restaurantes, un barrio y me diga el precio medio de un barrio */
+	
+	private static float devuelvePrecioMedioDeBarrio ( Map<String, List<Restaurante>> mapaRestaurantes, String barrio) {
+		float precioMedioPorBarrio = 0;
+		float sumaPrecioRestaurantes = 0;
+		int cantidadRestaurantes = 0;
+		
+		List<Restaurante> listaRestaurantesPorBarrio = mapaRestaurantes.get(barrio);
+			
+		for ( Restaurante restaurante : listaRestaurantesPorBarrio) {
+				sumaPrecioRestaurantes += restaurante.getPrecio();
+		}
+		
+		cantidadRestaurantes = listaRestaurantesPorBarrio.size() ;
+		precioMedioPorBarrio = calculaMedia(cantidadRestaurantes, sumaPrecioRestaurantes);
+		
+		return precioMedioPorBarrio;
+	}
+
+	private static float calculaMedia(int cantidadRestaurantes, float sumaPrecioRestaurantes) {
+		float resultado= 0;
+		
+		resultado = sumaPrecioRestaurantes / cantidadRestaurantes ;
+		
+		return resultado;
+	}
+	
+	public static List<Restaurante> obtenerRestaurantesMasBaratos ( Map<String, List<Restaurante>> mapaRestaurantes) {
+		List<Restaurante> listaBaratos = new ArrayList<>();		
+		float precioMenor = 0;
+		
+		for ( String barrio : mapaRestaurantes.keySet() ) {
+			
+			List<Restaurante> listaRestaurantesPorBarrio = mapaRestaurantes.get(barrio);
+			
+			Restaurante restauranteMasBarato = obtenerMasBarato(listaRestaurantesPorBarrio);
+			
+			listaBaratos.add(restauranteMasBarato);
+			
+			
+		}
+		return listaBaratos;
+	}
+	
+	private static Restaurante obtenerMasBarato (List<Restaurante> listaRestaurantes) {
+		Restaurante restauranteMasBarato = new Restaurante();
+		float precioMenor = 0;
+		
+		for (Restaurante restaurante : listaRestaurantes) {
+			if (restaurante.getPrecio() > precioMenor) {
+				restauranteMasBarato = restaurante;
+				precioMenor = restaurante.getPrecio();
+			}
+		}
+		
+		Collections.sort(listaRestaurantes);
+		
+		return restauranteMasBarato;
+	}
 	
 	
 	
