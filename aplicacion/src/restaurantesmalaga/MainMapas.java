@@ -156,6 +156,8 @@ public class MainMapas {
 		return resultado;
 	}
 	
+	
+	// Hacer un metodo que reciba un mapa de restaurantes y devuelva el restaurante mas barato de todos los barrios
 	public static List<Restaurante> obtenerRestaurantesMasBaratos ( Map<String, List<Restaurante>> mapaRestaurantes) {
 		List<Restaurante> listaBaratos = new ArrayList<>();		
 		float precioMenor = 0;
@@ -175,10 +177,10 @@ public class MainMapas {
 	
 	private static Restaurante obtenerMasBarato (List<Restaurante> listaRestaurantes) {
 		Restaurante restauranteMasBarato = new Restaurante();
-		float precioMenor = 0;
+		float precioMenor = 500000;
 		
 		for (Restaurante restaurante : listaRestaurantes) {
-			if (restaurante.getPrecio() > precioMenor) {
+			if (restaurante.getPrecio() < precioMenor) {
 				restauranteMasBarato = restaurante;
 				precioMenor = restaurante.getPrecio();
 			}
