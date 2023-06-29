@@ -16,5 +16,7 @@ public interface RestauranteService {
 
 	Optional<Restaurante> modificarRestaurante (Long id, Restaurante restaurante);
 	
+	Iterable<Restaurante> buscaRestaurantesEntreRangos (int precioMin, int precioMax);
 	
+	Iterable<Restaurante> busquedaPorClave(String clave);
 }
